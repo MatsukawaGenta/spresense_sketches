@@ -3,8 +3,6 @@ SPRESENSE_Sketches
 This repo contains my sketches of SPRESENSE.
 
 ## Description
-Driver for SPRESENSE is CP21x.
-
 The API reference documentation is provided here https://developer.sony.com/develop/spresense/developer-tools/api-reference/api-references-arduino/ .
 
 ## Demo
@@ -14,11 +12,13 @@ N/A
 N/A
 
 ## Features
-* Action_Recognition_Module: Prototype for my sub reserch theme
-* 
+* Action_Recognition_Module: A prototype for my sub reserch theme
+
 ## Requirement
 ### Hardware requirement
-* USB2.0 controller or more
+* SPRESENSE https://developer.sony.com/ja/develop/spresense/
+* BMI160 https://www.switch-science.com/catalog/5258/
+* Analog mic
 ### Operating system requirements
 The Spresense Arduino Library runs on the following operating systems:
 * Windows 8.1/10
