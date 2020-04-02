@@ -1,5 +1,5 @@
 /*
- *  pcm_capture_objif.ino - PCM capture using object if example application
+ *  action_recognition_module.ino - PCM capture using object if, Accelerometer, Gyro example application
  *  Copyright 2018 Sony Semiconductor Solutions Corporation
  *
  *  This library is free software; you can redistribute it and/or
@@ -17,7 +17,6 @@
  *  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-<<<<<<< HEAD
 #include <BMI160Gen.h>
 #include <MediaRecorder.h>
 #include <MemoryUtil.h>
@@ -28,15 +27,6 @@ MediaRecorder *theRecorder;
 
 static const int32_t recoding_frames = 400;
 static const int32_t buffer_size = 6144; /*768sample,4ch,16bit*/
-=======
-#include <MediaRecorder.h>
-#include <MemoryUtil.h>
-
-MediaRecorder *theRecorder;
-
-static const int32_t recoding_frames = 400;
-static const int32_t buffer_size = 6144;
->>>>>>> origin/master
 static uint8_t       s_buffer[buffer_size];
 
 bool ErrEnd = false;
@@ -58,7 +48,6 @@ void mediarecorder_attention_cb(const ErrorAttentionParam *atprm)
 }
 
 /**
-<<<<<<< HEAD
  *  Recording bit rate
  * Set in bps.
  */
@@ -82,10 +71,7 @@ static const uint8_t  recoding_cannel_number = 1;
  */
 static const uint8_t  recoding_bit_length = 16;
 
-
 /**
-=======
->>>>>>> origin/master
  * @brief Recorder done callback procedure
  *
  * @param [in] event        AsRecorderEvent type indicator
@@ -94,10 +80,7 @@ static const uint8_t  recoding_bit_length = 16;
  *
  * @return true on success, false otherwise
  */
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 static bool mediarecorder_done_callback(AsRecorderEvent event, uint32_t result, uint32_t sub_result)
 {
   printf("mp cb %x %x %x\n", event, result, sub_result);
@@ -115,24 +98,21 @@ static bool mediarecorder_done_callback(AsRecorderEvent event, uint32_t result, 
  */
 void setup()
 {
-<<<<<<< HEAD
-  
-  // initialize IMU160 device
+
+  /* initialize IMU160 device */
   puts("Initializing IMU device...");
-  //BMI160.begin(BMI160GenClass::SPI_MODE, /* SS pin# = */10);
   BMI160.begin();
   uint8_t dev_id = BMI160.getDeviceID();
 
-  // Set the accelerometer range to 2G (or 4, 8, 16G)
+  /* Set the accelerometer range to 2G (or 4, 8, 16G) */
   BMI160.setAccelerometerRange(2);
 
-  // Set the accelerometer range to 250 degrees/second (or 125, 500, 1000, 2000)
+  /* Set the accelerometer range to 250 degrees/second (or 125, 500, 1000, 2000) */
   BMI160.setGyroRange(250);
-  
+
   puts("Initializing IMU device...done.");
 
-=======
->>>>>>> origin/master
+  
   /* Initialize memory pools and message libs */
 
   initMemoryPools();
@@ -162,7 +142,6 @@ void setup()
    */
 
   theRecorder->init(AS_CODECTYPE_LPCM,
-<<<<<<< HEAD
                     recoding_cannel_number,
                     recoding_sampling_rate,
                     recoding_bit_length,
@@ -171,14 +150,9 @@ void setup()
   
   /* Set Gain */
   theRecorder->setMicGain(ANALOG_MIC_GAIN);
-=======
-                    AS_CHANNEL_4CH,
-                    AS_SAMPLINGRATE_48000,
-                    AS_BITLENGTH_16,
-                    AS_BITRATE_8000, /* Bitrate is effective only when mp3 recording */
-                    "/mnt/sd0/BIN");
->>>>>>> origin/master
 
+
+  /* Start Recorder */
   theRecorder->start();
   puts("Recording Start!");
   
@@ -187,10 +161,7 @@ void setup()
 /**
  * @brief Audio signal process (Modify for your application)
  */
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 void signal_process(uint32_t size)
 {
   /* Put any signal process */
@@ -210,10 +181,7 @@ void signal_process(uint32_t size)
 /**
  * @brief Execute frames for FIFO empty
  */
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 void execute_frames()
 {
   uint32_t read_size = 0;
@@ -232,15 +200,9 @@ void execute_frames()
 /**
  * @brief Execute one frame
  */
-<<<<<<< HEAD
-err_t execute_aframe(uint32_t* size)
-{
-  /* Read Stream Data from FIFO to a file by some frames.(now 5 frames)*/
-=======
 
 err_t execute_aframe(uint32_t* size)
 {
->>>>>>> origin/master
   err_t err = theRecorder->readFrames(s_buffer, buffer_size, size);
 
   if(((err == MEDIARECORDER_ECODE_OK) || (err == MEDIARECORDER_ECODE_INSUFFICIENT_BUFFER_AREA)) && (*size > 0)) 
@@ -254,12 +216,14 @@ err_t execute_aframe(uint32_t* size)
 /**
  * @brief Capture frames of PCM data into buffer
  */
-<<<<<<< HEAD
+
 void loop() {
+
   /* For BMI160 */
   float ax, ay, az;   //scaled accelerometer values
   float gx, gy, gz; //scaled Gyro values
-  /* For Analog mic*/
+  
+  /* For Analog mic */
   static int32_t total_size = 0;
   uint32_t read_size = 0;
 
@@ -267,14 +231,6 @@ void loop() {
   BMI160.readAccelerometerScaled(ax, ay, az);
   BMI160.readGyroScaled(gx, gy, gz);
 
-=======
-
-void loop() {
-
-  static int32_t total_size = 0;
-  uint32_t read_size = 0;
-
->>>>>>> origin/master
   /* Execute audio data */
   err_t err = execute_aframe(&read_size);
   if (err != MEDIARECORDER_ECODE_OK && err != MEDIARECORDER_ECODE_INSUFFICIENT_BUFFER_AREA)
@@ -286,10 +242,7 @@ void loop() {
   else if (read_size>0)
     {
       total_size += read_size;
-<<<<<<< HEAD
       printf("ax:%.2f, ay:%.2f, az:%.2f, gx:%.2f, gy:%.2f, gz:%.2f\n", ax, ay, az, gx, gy, gz);
-=======
->>>>>>> origin/master
     }
 
   /* This sleep is adjusted by the time to write the audio stream file.
