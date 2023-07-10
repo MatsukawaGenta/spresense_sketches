@@ -1,6 +1,6 @@
 SPRESENSE_Sketches
 ====
-This repo contains my sketches of SPRESENSE.
+This repository contains my sketches of SPRESENSE.
 
 ## Description
 The API reference documentation is provided here https://developer.sony.com/develop/spresense/developer-tools/api-reference/api-references-arduino/ .
