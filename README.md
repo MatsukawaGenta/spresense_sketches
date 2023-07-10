@@ -45,5 +45,5 @@ N/A
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 
 ## Author
-test
+
 [Genta Matsukawa](https://github.com/MatsukawaGenta)
