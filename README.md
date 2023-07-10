@@ -46,4 +46,4 @@ N/A
 
 ## Author
 
-[genmai99](https://github.com/genmai99)
+[genmai99](https://github.com/MatsukawaGenta)
